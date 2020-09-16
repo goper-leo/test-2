@@ -3,7 +3,7 @@ setup:
 	yarn
 	php artisan key:generate
 	make authorize
-	php artisan migrate
+	php artisan migrate --seed
 	php artisan storage:link
 
 authorize:

@@ -13,3 +13,36 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+/**
+ * Guest routes
+ * @var routes
+ */
+Route::namespace('Auth')->prefix('auth')->group(function () {
+    Route::name('auth.login')->post('login', 'LoginController@index');
+    Route::name('auth.signup')->post('signup', 'SignUpController@index');
+});
+
+/**
+ * Authenticated routes
+ * @var routes
+ */
+Route::middleware('auth:sanctum')->group(function () {
+
+    /**
+     * Admin routes
+     */
+    Route::namespace('Admin')->prefix('admin')->group(function () {
+        Route::name('admin.users')->get('users', 'UserController@index');
+        Route::name('admin.user.request')->post('user/request', 'UserController@store');
+    });
+
+    /**
+     * User routes
+     */
+    Route::namespace('User')->prefix('me')->group(function () {
+        Route::name('me')->get('', 'IndexController@index');
+        Route::name('me.update')->patch('update', 'IndexController@patch');
+    });
+
+});
