@@ -16,6 +16,15 @@ const settings = {
             funny: 'text-white bg-orange-600 hover:bg-orange-500 focus:border-orange-700 active:bg-orange-700 text-sm font-medium uppercase border-orange-200 px-4 py-2 border-2 rounded-full shadow',
             link: 'underline text-orange-500 px-3 py-2 hover:bg-orange-100 rounded'
         }
+    },
+    TInput: {
+        fixedClasses: 'bg-white mb-4 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full leading-normal',
+        variants: {
+            error: 'text-red-600 bg-red-100 focus:outline-none focus:shadow-outline border border-red-300 rounded py-2 px-4 block w-full leading-normal placeholder-red-300',
+            success: 'text-green-600 bg-green-100 focus:outline-none focus:shadow-outline border border-green-300 rounded py-2 px-4 block w-full leading-normal placeholder-green-300',
+            default: 'bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full leading-normal'
+        }
     }
 }
+
 Vue.use(VueTailwind, settings)

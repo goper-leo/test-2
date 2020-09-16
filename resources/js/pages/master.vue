@@ -1,13 +1,8 @@
 <template>
 
-    <div class="flex p-4 flex-col">
-        Comments:
-        <div class="bg-white p-4 flex flex-col">
-            <comment v-for="comment in comments" :key="comment.id" :comment="comment" />
-        </div>
-
-        <comment-form />
-        <notify ref="notify" />
+    <div class="flex-1 body-bg-color px-32 py-6 body-bg-color xs:px-2 xs:py-2 min-h-screen">
+        <router-view></router-view>
+        <Notify ref="notify" />
     </div>
 
 </template>
@@ -17,30 +12,9 @@
 
     export default {
 
-        data: () => ({
-            comments: []
-        }),
-
-        methods: {
-
-            async fetchComments() {
-                const { data: { data } } = await axios.get(`/api/comment`)
-                this.comments = data
-            }
+        mounted() {
             
         },
-
-        mounted() {
-            this.fetchComments()
-        },
-
-        created() {
-            Echo.channel(`commented`)
-                .listen('Commented', (e) => {
-                    this.fetchComments()
-                });
-
-        }
     }
 
 </script>
