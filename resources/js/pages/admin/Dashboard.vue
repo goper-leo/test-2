@@ -14,7 +14,12 @@
             <t-table :headers="['Name', 'Email', 'Has Signup', 'Is Enable']" :data="users">
                 <template v-slot:row="props">
                     <tr :class="[props.trClass]">
-                        <td :class="props.tdClass">{{ props.row.name }}</td>
+                        <td :class="props.tdClass">
+                            <div>
+                                <img :src="props.row.avatar_url" width="40"/>
+                            </div>
+                            {{ props.row.name }}
+                        </td>
                         <td :class="props.tdClass">{{ props.row.email }}</td>
                         <td :class="[props.tdClass, { 'text-red-500': !props.row.is_signed_up}]">{{ props.row.is_signed_up ? 'Done' : 'Not yet' }}</td>
                         <td :class="[props.tdClass, { 'text-red-500': props.row.is_disable}]">{{ props.row.is_disable ? 'False' : 'True' }}</td>

@@ -42,7 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
      */
     Route::namespace('User')->prefix('me')->group(function () {
         Route::name('me')->get('', 'IndexController@index');
-        Route::name('me.update')->patch('update', 'IndexController@patch');
+        Route::name('me.update')->post('update/avatar', 'IndexController@uploadAvatar');
     });
 
 });

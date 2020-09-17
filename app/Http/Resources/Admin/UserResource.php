@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Admin;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,7 +16,7 @@ class UserResource extends JsonResource
     {
         $avatarUrl = asset('img/user_profile.jpg');
         if ($this->avatar_url)
-            $avatarUrl = asset('img/small_' . $this->avatar_url);
+            $avatarUrl = asset('img/big_' . $this->avatar_url);
 
         return [
             'id' => $this->id,
