@@ -20,16 +20,26 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     const loggedInUser = localStorage.getItem('user')
-
+    
     // Check if user is `loggedInUser`
     if (to.matched.some(record => record.meta.auth) && !loggedInUser) {
+
+        if (to.name == 'sign_up')
+            next()
+        
         next('/login')
         return
     }
 
     // Check if it's going to login route and user is already logged in
     if (to.name == 'login' && loggedInUser) {
-        next('/user')
+        const auth = JSON.parse(loggedInUser)
+        const { is_admin } = auth.user
+        
+        if (is_admin)
+            next('/admin/dashboard')
+        else 
+            next('/user')
         return
     }
 

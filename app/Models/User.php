@@ -20,6 +20,7 @@ class User extends Authenticatable
         'email',
         'name',
         'avatar_url',
+        'code',
         'is_admin',
         'is_signed_up',
         'is_disable',
@@ -33,4 +34,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    /**
+     * Scope a query to only include all users except `me`.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeExceptMe($query)
+    {
+        return $query->where('id', '!=', auth()->user()->id);
+    }
 }

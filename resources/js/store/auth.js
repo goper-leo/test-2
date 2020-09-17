@@ -17,10 +17,7 @@ export default {
      * @author {goper}
      */
     state: {
-        user: {
-            notify_email: null,
-            notify_sms: null,
-        },
+        user: null,
         token: null
     },
 
@@ -41,10 +38,9 @@ export default {
          * @author {goper}
          */
         fill(state, payload) {
-            state.user = payload
+            state.user = payload.user
             localStorage.setItem('user', JSON.stringify(payload))
             axios.defaults.headers.common.Authorization = `Bearer ${payload.token}`
-            window.Echo.connector.pusher.config.auth.headers.Authorization = `Bearer ${payload.token}`
         },
 
         /**
@@ -54,7 +50,7 @@ export default {
          * @return {void}
          */
         fillUserData(state, payload) {
-            state.user.user = payload
+            state.user = payload
         },
 
         /**
@@ -129,16 +125,7 @@ export default {
          * @author {goper}
          */
         user(state) {
-            return state.user.user
-        },
-
-        /**
-         * Get user token
-         * @param  {[type]} state
-         * @return {string}
-         */
-        token(state) {
-            return state.user.token
+            return state.user
         },
 
         /**
@@ -147,7 +134,7 @@ export default {
          * @return {Boolean}
          */
         isAdmin(state) {
-            return state.user.user.is_admin
+            return state.user ? state.user.is_admin : false
         },
 
         /**
@@ -155,7 +142,7 @@ export default {
          * @param  {[type]}  state
          * @return {Boolean}
          */
-        isLogged: state => !!state.user.user
+        isLogged: state => !!state.user
 
     }
 };

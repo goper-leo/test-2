@@ -1,6 +1,6 @@
 <template>
 
-    <div class="flex-1 body-bg-color px-32 py-6 body-bg-color xs:px-2 xs:py-2 min-h-screen">
+    <div class="flex-1 body-bg-color px-12 py-6 body-bg-color min-h-screen">
         <router-view></router-view>
         <Notify ref="notify" />
     </div>
@@ -12,9 +12,7 @@
 
     export default {
 
-        mounted() {
-            
-        },
+        
     }
 
 </script>

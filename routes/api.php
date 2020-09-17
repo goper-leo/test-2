@@ -34,7 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
      */
     Route::namespace('Admin')->prefix('admin')->group(function () {
         Route::name('admin.users')->get('users', 'UserController@index');
-        Route::name('admin.user.request')->post('user/request', 'UserController@store');
+        Route::name('admin.user')->post('user', 'UserController@store');
     });
 
     /**

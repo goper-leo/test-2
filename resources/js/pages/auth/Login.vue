@@ -34,19 +34,16 @@ export default {
         async login() {
             try {
                 let result = await this.$store.dispatch('auth/login', this.form)
-                const { data: data } = await axios.post(`/api/auth/login`, this.form)
                 const isLogged = this.$store.getters['auth/isLogged']
-                const role = this.$store.getters['auth/role']
-
+                const isAdmin = this.$store.getters['auth/isAdmin']
+                
                 if (isLogged) {
-                    if (role == 10)
-                        this.$router.push({ name: 'admin.pharmacies' })
-                    else if (role == 1)
-                        this.$router.push({ name: 'pharmacist.active_auctions' })
-                    else if (role == 2)
-                        this.$router.push({ name: 'vendor.dashboard' })
-
+                    if (isAdmin)
+                        this.$router.push({ name: 'admin.dashboard' })
+                    else
+                        this.$router.push({ name: 'user' })
                 }
+                
             } catch ({ errors }) {
                 // if (err.status == 422)
                     // this.errors = err.errors

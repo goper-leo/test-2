@@ -18,11 +18,11 @@ class LoginController extends Controller
     public function index(LoginRequest $request)
     {
         $user = User::where('email', $request->email)->first();
-
+ 
         if (!$user->is_signed_up)
             return error_response('You must finish your sign up. See your email for the process.');
 
-        if (!$user->is_disable)
+        if ($user->is_disable)
             return error_response('You are disable for logging in.');
         
         if (!Hash::check($request->password, $user->password)) {
