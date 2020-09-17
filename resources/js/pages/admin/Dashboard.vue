@@ -22,7 +22,10 @@
                         </td>
                         <td :class="props.tdClass">{{ props.row.email }}</td>
                         <td :class="[props.tdClass, { 'text-red-500': !props.row.is_signed_up}]">{{ props.row.is_signed_up ? 'Done' : 'Not yet' }}</td>
-                        <td :class="[props.tdClass, { 'text-red-500': props.row.is_disable}]">{{ props.row.is_disable ? 'False' : 'True' }}</td>
+                        <td :class="[`align-middle flex`, props.tdClass, { 'text-red-500': props.row.is_disable}]">
+                            <t-toggle :checked="props.row.is_disable ? false: true" @change="toggleUserStatus(props.row.is_disable, props.row.id)"/>
+                            <span class="ml-2" v-text="props.row.is_disable ? 'False' : 'True'"></span>
+                        </td>
                     </tr>
                 </template>
             </t-table>
@@ -53,8 +56,18 @@ export default {
 
         closeForm() {
             this.isShowCreateUserModal = false;
-            this.fetchUsers();
+            this.fetchUsers()
         },
+
+        async toggleUserStatus(status, id) {
+            try {
+                const { data: { data } } = await axios.patch(`/api/admin/user/status/toggle`, { id, status })
+                this.$notify.success('User status has been updated')
+                this.fetchUsers()
+            } catch (err) {
+
+            }
+        }
     },
 
     mounted() {
@@ -65,7 +78,7 @@ export default {
             this.$store.dispatch("auth/fetchUserProfile");
         }
 
-        this.fetchUsers();
+        this.fetchUsers()
     },
 };
 </script>

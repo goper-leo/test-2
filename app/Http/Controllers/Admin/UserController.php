@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\StoreRequest;
 use Illuminate\Support\Str;
 use App\Notifications\UserSignUpProcess;
+use App\Http\Requests\Admin\User\ToggleStatusRequest;
 
 class UserController extends Controller
 {
@@ -40,6 +41,21 @@ class UserController extends Controller
 
         $user->notify(new UserSignUpProcess($user));
         
+        return new UserResource($user);
+    }
+
+    /**
+     * Toggle user status
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function toggleStatus(ToggleStatusRequest $request)
+    {
+        $user = User::find($request->id);
+        $user->is_disable = $request->status ? false : true;
+        $user->save();
+
         return new UserResource($user);
     }
 }

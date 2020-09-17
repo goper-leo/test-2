@@ -25,6 +25,8 @@ axios.interceptors.response.use(((response) => {
                     throw new ValidationError(message, errors)
                 case 404:
                     throw new ModelNotFoundError(message, errors)
+                case 406:
+                    window.app.$notify.error(message)
             }
 
             return Promise.reject(response);

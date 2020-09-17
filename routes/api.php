@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::namespace('Admin')->prefix('admin')->group(function () {
         Route::name('admin.users')->get('users', 'UserController@index');
         Route::name('admin.user')->post('user', 'UserController@store');
+        Route::name('admin.user.toggle_enable_disable')->patch('user/status/toggle', 'UserController@toggleStatus');
     });
 
     /**
